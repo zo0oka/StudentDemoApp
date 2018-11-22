@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">StudentDemoApp</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings related to MainActivity-->
+    <string name="scan_barcode_button">Scan barcode</string>
+    <string name="no_barcode_captured">No barcode captured</string>
+    <string name="barcode_error_format">"Error reading barcode: %1$s"</string>
+
+    <!-- Strings related to barcode scanner -->
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="student_name">Student Name</string>
+    <string name="student_image">Student Image</string>
+    <string name="phone_number">tel:+201018890088</string>
+    <string name="view_profile">View profile</string>
+    <string name="error_message">Error connecting to server</string>
+    <string name="name">Name:</string>
+    <string name="id">ID:</string>
+    <string name="gender">Gender:</string>
+    <string name="sClass">Class:</string>
+    <string name="gpa">GPA:</string>
+    <string name="email">Email:</string>
+    <string name="mobile">Mobile:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
