@@ -18,12 +18,15 @@ import com.example.zo0okadev.studentdemoapp.barcodeReader.barcode.BarcodeCapture
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final int BARCODE_READER_REQUEST_CODE = 1;
     private static final String BARCODE_DATA = "barcode_data";
     private TextView mResultTextView;
+    private AudioRecorder audioRecorder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        audioRecorder = new AudioRecorder("/record");
 
         mResultTextView = findViewById(R.id.result_textview);
         Button scanBarcodeButton = findViewById(R.id.scan_barcode_button);
@@ -54,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 startActivity(call);
+                try {
+                    audioRecorder.start();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -69,7 +79,18 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra(BARCODE_DATA, barcode.displayValue);
                     startActivity(intent);
                 } else mResultTextView.setText(R.string.no_barcode_captured);
-            }
-        } else super.onActivityResult(requestCode, resultCode, data);
+            } else super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            audioRecorder.stop();
+
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -31,7 +31,4 @@ public class Student {
         return studentImgUrl;
     }
 
-    public void setStudentImgUrl(String studentImgUrl) {
-        this.studentImgUrl = studentImgUrl;
-    }
 }
