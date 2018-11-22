@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.zo0okadev.studentdemoapp.barcodeReader.barcode.BarcodeCaptureActivity;
+import com.example.zo0okadev.studentdemoapp.helper.AudioRecorder;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 
