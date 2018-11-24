@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.zo0okadev.studentdemoapp.helper.SingletonVolley;
+import com.example.zo0okadev.studentdemoapp.model.Student;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -23,7 +25,7 @@ public class StudentProfileActivity extends AppCompatActivity {
     private static final String STUDENT_ID = "student_id";
     private static final String STUDENT_PROFILE_URL = "http://m4saad.fekrait.com/test-api/get_students_details.php";
     private String student_id;
-    private String id, name, img_url, email, mobile, gpa, sClass, gender;
+    private Student currentStudent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,34 +43,13 @@ public class StudentProfileActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try {
-                            JSONObject rootObject = new JSONObject(response);
-                            JSONObject studentData = rootObject.getJSONObject("data");
-                            id = studentData.getString("id");
-                            name = studentData.getString("name");
-                            img_url = studentData.getString("img_url");
-                            email = studentData.getString("email");
-                            mobile = studentData.getString("mobile");
-                            gpa = studentData.getString("gpa");
-                            sClass = studentData.getString("class");
-                            gender = studentData.getString("gender");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } finally {
-                            Picasso.get().load(img_url).into((ImageView) findViewById(R.id.studentImage));
-                            ((TextView) findViewById(R.id.id_txt)).setText(id);
-                            ((TextView) findViewById(R.id.name_txt)).setText(name);
-                            ((TextView) findViewById(R.id.email_txt)).setText(email);
-                            ((TextView) findViewById(R.id.mobile_txt)).setText(mobile);
-                            ((TextView) findViewById(R.id.gpa_txt)).setText(gpa);
-                            ((TextView) findViewById(R.id.class_txt)).setText(sClass);
-                            ((TextView) findViewById(R.id.gender_txt)).setText(gender);
-                        }
+                        createCurrentStudent(response);
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), R.string.error_message, Toast.LENGTH_SHORT).show();
                     }
                 }) {
             @Override
@@ -79,6 +60,49 @@ public class StudentProfileActivity extends AppCompatActivity {
             }
         };
         SingletonVolley.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
+    }
+
+    //Sets the views for the Student profile with its data
+    public void setStudentProfileData(Student student) {
+        Picasso.get().load(student.getStudentImgUrl())
+                .into((ImageView) findViewById(R.id.studentImage));
+        ((TextView) findViewById(R.id.studentId))
+                .setText(getResources().getString(R.string.id, String.valueOf(student.getStudentId())));
+        ((TextView) findViewById(R.id.studentName))
+                .setText(getResources().getString(R.string.name, student.getStudentName()));
+        ((TextView) findViewById(R.id.studentEmail))
+                .setText(getResources().getString(R.string.email, student.getStudentEmail()));
+        ((TextView) findViewById(R.id.studentMobile))
+                .setText(getResources().getString(R.string.mobile, student.getStudentMobile()));
+        ((TextView) findViewById(R.id.studentGpa))
+                .setText(getResources().getString(R.string.gpa, student.getStudentGpa()));
+        ((TextView) findViewById(R.id.studentClass))
+                .setText(getResources().getString(R.string.sClass, student.getStudentClass()));
+        ((TextView) findViewById(R.id.studentGender))
+                .setText(getResources().getString(R.string.gender, student.getStudentGender()));
+    }
+
+    //Creates Student profile
+    public void createCurrentStudent(String studentJsonData) {
+        try {
+            JSONObject rootObject = new JSONObject(studentJsonData);
+            JSONObject studentData = rootObject.getJSONObject("data");
+
+            currentStudent = new Student(
+                    studentData.getInt("id"),
+                    studentData.getString("name"),
+                    studentData.getString("img_url"),
+                    studentData.getString("email"),
+                    studentData.getString("mobile"),
+                    studentData.getString("gpa"),
+                    studentData.getString("class"),
+                    studentData.getString("gender"));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
+            setStudentProfileData(currentStudent);
+        }
     }
 }
 

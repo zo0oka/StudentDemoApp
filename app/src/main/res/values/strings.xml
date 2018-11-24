@@ -15,17 +15,12 @@
     <string name="student_name">Student Name</string>
     <string name="student_image">Student Image</string>
     <string name="phone_number">tel:+201018890088</string>
-    <string name="view_profile">View profile</string>
     <string name="error_message">Error connecting to server</string>
-    <string name="name">Name:</string>
-    <string name="id">ID:</string>
-    <string name="gender">Gender:</string>
-    <string name="sClass">Class:</string>
-    <string name="gpa">GPA:</string>
-    <string name="email">Email:</string>
-    <string name="mobile">Mobile:</string>
-
-    <string name="device_description">Device Description</string>
-    <string name="device_admin_label">Device Admin Demo</string>
-
+    <string name="name">Name: %1$s</string>
+    <string name="id">ID: %1$s</string>
+    <string name="gender">Gender: %1$s</string>
+    <string name="sClass">Class: %1$s</string>
+    <string name="gpa">GPA: %1$s</string>
+    <string name="email">Email: %1$s</string>
+    <string name="mobile">Mobile: %1$s</string>
 </resources>

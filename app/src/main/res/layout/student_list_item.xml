@@ -17,7 +17,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:padding="8dp"
-        android:text="@string/student_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

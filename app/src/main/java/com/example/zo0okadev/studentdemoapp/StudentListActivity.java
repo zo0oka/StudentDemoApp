@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class StudentListActivity extends AppCompatActivity {
 
     private static final String BARCODE_DATA = "barcode_data";
-    private static final String LOG_TAG = StudentListActivity.class.getSimpleName();
     private static final String STUDENT_ID = "student_id";
     private ArrayList<Student> students = new ArrayList<>();
 
